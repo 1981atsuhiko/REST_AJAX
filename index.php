@@ -1,6 +1,7 @@
-<?php
 $url = get_home_url();
-$post_date = $res;
+///権限カテゴリ取得
+$carD = '73,72,75,76,71,74';
+$restcat = str_replace(',','+',$carD);
 ?>
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main">
@@ -29,7 +30,7 @@ $post_date = $res;
 
 				function getPost() {
 					$.ajax({
-						url: baseUrl + '/wp-json/wp/v2/posts/?_embed',
+						url: baseUrl + '/wp-json/wp/v2/posts/?_embed&categories=<?php echo $restcat;?>',
 						type: 'GET',
 						data: {
 							'page': nowPage,
@@ -116,7 +117,10 @@ $post_date = $res;
 							}else{
 								html += '<p>【非公開記事】</p>'					
 							}
-							html += '<p>' + title + '</p>'
+							var Pnum = i + 1;
+							var Ppage = nowPage-1;
+							var post_num = Pnum + Ppage*perPage;
+							html += '<p>' + title + '№' + post_num + '</p>'
 							html += '</a>'
 							//html += '<div>'+ sdate +'</div>'
 							html += '</li>'
